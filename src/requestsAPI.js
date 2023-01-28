@@ -1,5 +1,4 @@
 const key = process.env.REACT_APP_API_KEY;
-console.log(key);
 
 const requests = {
     requestNowPlaying:`https://api.themoviedb.org/3/movie/now_playing?api_key=${key}&language=en-US&page=1`,
