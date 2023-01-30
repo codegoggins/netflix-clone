@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios';
 import requests from '../requestsAPI';
-import { ContentCutOutlined } from '@mui/icons-material';
 
 const Main = () => {
 
@@ -41,13 +40,13 @@ const Main = () => {
 
     {/* BUTTONS */}
     <div className='my-6'>
-      <button>Play Now</button>
-      <button>Watch Later</button>
+      <button className='bg-red-600 p-2 px-6 rounded'>Play Now</button>
+      <button className='p-2'>Watch Later</button>
     </div>
     
     {/* DESC */}
       <p className='text-gray-500 text-sm'>{movie?.release_date}</p>
-      <p className='text-gray-200 text-lg my-2 md:max-w'>
+      <p className='text-gray-200 text-lg my-2 md:max-w-[500px]'>
       {
       shrinkString(movie?.overview,200)
       } 
