@@ -2,8 +2,8 @@ import React from 'react'
 
 const Footer = () => {
   return (
-    <div className='h-[80px] border-t-2 border-[#303030] mt-20'>
-      <div className='text-[#303030] flex gap-2 items-center justify-center p-6'>
+    <div className='h-[90px] border-t-2 border-[#303030] overflow-hidden'>
+      <div className='text-[#303030] flex flex-col gap-2 items-center justify-center p-2 md:flex-row'>
         <p>
         © 2022 Netflix Clone All Rights Reserved by
         </p>
