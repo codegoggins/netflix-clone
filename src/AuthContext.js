@@ -4,7 +4,7 @@ import {auth} from './firebase'
 
 const AuthContext = createContext();
 
-export const AuthContextProvider = ({children}) =>{
+export function AuthContextProvider({children}){
   const [user,setUser] = useState({});
 
   const signup = (email,password) => {
@@ -35,6 +35,6 @@ export const AuthContextProvider = ({children}) =>{
   )
 };
 
-export const UserAuth = () => {
+export function UserAuth(){
     return useContext(AuthContext);
 }

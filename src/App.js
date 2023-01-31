@@ -3,6 +3,7 @@ import {
   Outlet,
   RouterProvider,
 } from "react-router-dom";
+import { AuthContextProvider } from "./AuthContext";
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
 import Account from "./pages/Account";
@@ -48,7 +49,9 @@ const router = createBrowserRouter([
 function App() {
   return (
     <div>
+       <AuthContextProvider>
       <RouterProvider router={router} />
+       </AuthContextProvider>
     </div>
   );
 }
