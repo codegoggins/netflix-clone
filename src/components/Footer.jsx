@@ -7,7 +7,7 @@ const Footer = () => {
         <p>
         © 2022 Netflix Clone All Rights Reserved by
         </p>
-        <a href='https://github.com/codegoggins' target='_blank' className='text-white'>codegoggins</a>
+        <a href='https://github.com/codegoggins' target='_blank' rel="noreferrer" className='text-white'>codegoggins</a>
       </div>
     </div>
   )
