@@ -1,7 +1,26 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import { UserAuth } from '../AuthContext';
 
 const SignIn = () => {
+
+  const {user,signin} = UserAuth();
+  const [email,setEmail] = useState("");
+  const [password,setPassword] = useState("");
+  const [error,setError] = useState("");
+  const navigate = useNavigate();
+  
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError("");
+    try{
+      await signin(email,password);
+      navigate('/');
+    }catch(error){
+       setError(error.message);
+    }
+  }
+
   return (
     <div className='w-full h-screen flex items-center justify-center mb-12'>
     <img
@@ -13,11 +32,24 @@ const SignIn = () => {
         <div className='bg-red z-30 bg-black/75 p-16 rounded md:p-24'>
               <div className='flex flex-col items-center justify-center gap-6 z-10'>
                 <h1 className='font-bold text-3xl'>Sign In</h1>
-                <form className='flex flex-col items-center justify-center gap-8'>
-                  <input 
+                {
+                    error ? (
+                         <p className='p-3 bg-red-500 my-1'>
+                          {error.message}
+                         </p>
+                    ):(
+                          null
+                    )
+                  }
+                <form 
+                onSubmit={handleSubmit}
+                className='flex flex-col items-center justify-center gap-8'>
+                  <input
+                  onChange={(e)=>setEmail(e.target.value)}
                   className='py-2 px-3 rounded bg-gray-700 outline-none md:py-3 md:px-6'
                   type="text" placeholder='Email'/>
                   <input 
+                  onChange={(e)=>setPassword(e.target.value)}
                   className='py-2 px-3 rounded bg-gray-700 outline-none md:py-3 md:px-6'
                   type="password" placeholder='Password'/>
                   <button className='bg-red-600 py-2 rounded font-bold w-full md:py-3 md:px-6'>Sign In</button>
