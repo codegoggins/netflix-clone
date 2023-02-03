@@ -1,9 +1,10 @@
 import {
   createBrowserRouter,
+  Navigate,
   Outlet,
   RouterProvider,
 } from "react-router-dom";
-import { AuthContextProvider } from "./AuthContext";
+import { AuthContextProvider, UserAuth } from "./AuthContext";
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
 import Account from "./pages/Account";
@@ -19,6 +20,15 @@ const Layout = () => {
          <Footer/>
     </div>
   )
+}
+
+const ProtectedRoute = ({children}) => {
+  const {user} = UserAuth();
+  if(!user){
+    return <Navigate to = '/'/>
+  }else{
+    return children;
+  }
 }
 
 const router = createBrowserRouter([
@@ -40,7 +50,10 @@ const router = createBrowserRouter([
       },
       {
         path:'/account',
-        element:<Account/>
+        element:
+        <ProtectedRoute>
+            <Account/>
+        </ProtectedRoute>  
       },
     ]
   }
