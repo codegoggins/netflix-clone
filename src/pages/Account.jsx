@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import DeleteIcon from '@mui/icons-material/Delete';
-import {doc,onSnapshot} from 'firebase/firestore';
+import {doc,onSnapshot, updateDoc} from 'firebase/firestore';
 import { UserAuth } from '../AuthContext';
 import {db} from '../firebase'
 
@@ -14,6 +14,18 @@ const Account = () => {
       setMovies(doc.data()?.savedShows);
     })
   },[user?.email]);
+
+  const deleteShow = async (id) => {
+      try{
+         const shows = movies.filter((item)=>item.id !== id);
+         await updateDoc(doc(db,'users',`${user?.email}`),{
+          savedShows:shows
+         });
+         console.log(shows);
+      }catch(err){
+        console.log(err);
+      }
+  }
 
   return (
     <div>
@@ -36,7 +48,9 @@ const Account = () => {
                       {/* HOVER OVERLAY */}
                       <div className='absolute top-0 left-0 w-full h-full hover:bg-black/80 opacity-0 hover:opacity-100 text-white'>
                       <p className='white-space-normal text-md md:text-sm font-bold flex justify-center items-center h-full text-center'>{item?.title}</p>
-                      <p className='absolute top-4 right-2 cursor-pointer hover:text-red-600'>
+                      <p
+                      onClick={()=>deleteShow(item.id)} 
+                      className='absolute top-4 right-2 cursor-pointer hover:text-red-600'>
                           <DeleteIcon/>
                       </p>
                       </div>
