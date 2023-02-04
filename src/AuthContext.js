@@ -1,14 +1,24 @@
 import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { createContext, useContext,useEffect, useState } from "react";
-import {auth} from './firebase'
+import {auth,db} from './firebase'
+import {doc,setDoc} from 'firebase/firestore'
+
 
 const AuthContext = createContext();
 
 export function AuthContextProvider({children}){
   const [user,setUser] = useState({});
 
-  const signup = (email,password) => {
-    return createUserWithEmailAndPassword(auth,email,password);
+  const signup =async (email,password) => {
+    try{
+
+      createUserWithEmailAndPassword(auth,email,password);
+      setDoc(doc(db,'users',email),{
+        savedShows:[]
+      })
+    }catch(err){
+      console.log(err);
+    }
   }
 
   const signout = () => {
@@ -27,6 +37,7 @@ export function AuthContextProvider({children}){
         unsub();
     }
   })
+
 
   return (
     <AuthContext.Provider value={{signup,signin,signout,user}}>
